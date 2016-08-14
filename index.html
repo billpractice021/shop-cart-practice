@@ -7,20 +7,20 @@
         <h1>Shopping Cart</h1>
         
         <script>
-            var obj = {name:"Apple", cost:1.99, count:2}; // []
-            console.log(obj.name);
-            console.log(obj.cost);
+            var cart = []; 
 
-            for (var key in obj) {   // can name key anything like i normally
-                console.log(key+" "+obj[key]);
-            }
+            var item = {name:"Apple", cost:1.99, count:3};
+            item.thing = 5; // Adds a property to the obj. 
 
-            var array = ['a', 'b', 'c'];
+            cart.push(item); 
 
-            // can name key anything like i normally. Notice difference in Github. Key is the index in this case. 
-            for (var key in array) {      
-                console.log(key+" "+array[key]);
-            }
+            console.log(cart);
+            console.log(cart[0]); 
+            console.log(cart[0].name);
+            console.log(cart[0].cost);
+
+            console.log(cart[1]); // Does not work. Only 1 element(obj) in the array starting at index 0. 
+            console.log(cart[1].name); // Undefined. Can't ask for properties of an undefined. 
         </script>
     </body>
 </html>
