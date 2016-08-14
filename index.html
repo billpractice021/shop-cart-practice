@@ -7,26 +7,25 @@
         <h1>Shopping Cart</h1>
         
         <script>
-            
-            function myFunction(message, count) {
-                for (var i = 0; i < count; i++) {
-                   console.log(message); 
-                } 
+            // scope ? 
+
+            // var global = "Hello"; // This is available in the whole scope of javaScript(other scripts in project)
+            var global = 10; // second console.log will print this one after the local variable. 
+
+            function myFunction() {
+                var global = "Hello"; 
+                console.log("Global:"+global); // prints 10 not "Hello"
             }
 
-            myFunction("Hello World", 1); 
-            myFunction("Foo", 5); 
-            myFunction("Bar", 5); 
-            myFunction("AAA", 3); 
-            myFunction("BBB", 3); 
+            myFunction(); // This works when we invoke the function
+            console.log("Global:"+global); // Does not work since var global is defined locally within a function not globally. 
 
+        </script>
 
-            function square(num) {
-                return num * num; 
-            } 
-
-            console.log(square(3)); 
-
+        <script>
+            
+            // var global = 10; // This will print over first global = "Hello"
+            // console.log("Global:"+global);
         </script>
     </body>
 </html>
