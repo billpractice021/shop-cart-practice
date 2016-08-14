@@ -1,1 +1,1 @@
-# shop-cart-practice
+Practice making a shopping cart
