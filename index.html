@@ -7,18 +7,20 @@
         <h1>Shopping Cart</h1>
         
         <script>
-            var array = ['a', 'b', 'c'];
-            array.push('d'); 
-            for (var i = 0; i < array.length; i++) {
-                console.log(array[i]);
+            var obj = {name:"Apple", cost:1.99, count:2}; // []
+            console.log(obj.name);
+            console.log(obj.cost);
+
+            for (var key in obj) {   // can name key anything like i normally
+                console.log(key+" "+obj[key]);
             }
 
-            /* var array = ['a', 'b', 'c'];
-            console.log(array.length);
-            array.push('d'); 
-            console.log(array.length);
-            console.log(array);
-            console.log(array[1]);*/
+            var array = ['a', 'b', 'c'];
+
+            // can name key anything like i normally. Notice difference in Github. Key is the index in this case. 
+            for (var key in array) {      
+                console.log(key+" "+array[key]);
+            }
         </script>
     </body>
 </html>
