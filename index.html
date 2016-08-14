@@ -7,20 +7,26 @@
         <h1>Shopping Cart</h1>
         
         <script>
-            var cart = []; 
+            
+            function myFunction(message, count) {
+                for (var i = 0; i < count; i++) {
+                   console.log(message); 
+                } 
+            }
 
-            var item = {name:"Apple", cost:1.99, count:3};
-            item.thing = 5; // Adds a property to the obj. 
+            myFunction("Hello World", 1); 
+            myFunction("Foo", 5); 
+            myFunction("Bar", 5); 
+            myFunction("AAA", 3); 
+            myFunction("BBB", 3); 
 
-            cart.push(item); 
 
-            console.log(cart);
-            console.log(cart[0]); 
-            console.log(cart[0].name);
-            console.log(cart[0].cost);
+            function square(num) {
+                return num * num; 
+            } 
 
-            console.log(cart[1]); // Does not work. Only 1 element(obj) in the array starting at index 0. 
-            console.log(cart[1].name); // Undefined. Can't ask for properties of an undefined. 
+            console.log(square(3)); 
+
         </script>
     </body>
 </html>
