@@ -29,13 +29,30 @@
             addItemToCart("Pear", 1.72, 3);
             addItemToCart("Apple", 1.22, 1); // If we add item as same name as another existing item we need to update count of the existing item.
             addItemToCart("Apple", 1.22, 3); 
+           
+
+            function removeItemFromCart(name) { // Removes one item by looking up the name
+                for (var i in cart) {
+                    if (cart[i].name === name) {
+                        cart[i].count--; // cart[i].count = cart[i].count - 1; or cart[i].count -= 1; (same thing)
+                        if (cart[i].count === 0) {
+                            cart.splice(i, 1); // If count is 0 it removes item from cart completely. 
+                        }
+                        break; 
+                    }
+                }
+            }
+            
+            console.log(cart[0].count); 
+            removeItemFromCart("Apple");
+            removeItemFromCart("Apple"); 
+            removeItemFromCart("Apple"); 
+            removeItemFromCart("Apple"); 
+            removeItemFromCart("Apple");   
+            removeItemFromCart("Apple");        
             console.log(cart);
-            console.log(cart[0]);
-            console.log(cart[0].name);
 
-            // removeItemFromCart(name) // Removes one item
-
-            // removeItemFromcCartAll(name) // Removes all of a particular item name.
+            // removeItemFromcCartAll(name) // Removes all of a particular item using name.
 
             // clearCart() // Removes everything
 
