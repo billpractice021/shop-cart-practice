@@ -14,7 +14,24 @@
                 this.count = count; 
             }; 
 
-            // addItemToCart(name, price, count)
+            function addItemToCart(name, price, count) {
+                for (var i in cart) {
+                    if (cart[i].name === name) { // .name if from Item in cart and === name if from addItemToCart(name)
+                        cart[i].count += count; // Add count to whatever the value of count prop is. 
+                        return; // This will end the function 
+                    }
+                }
+                var item = new Item(name, price, count); //Executed only if we do not already find the item name in the cart
+                cart.push(item); 
+            }
+
+            addItemToCart("Apple", 1.22, 1);
+            addItemToCart("Pear", 1.72, 3);
+            addItemToCart("Apple", 1.22, 1); // If we add item as same name as another existing item we need to update count of the existing item.
+            addItemToCart("Apple", 1.22, 3); 
+            console.log(cart);
+            console.log(cart[0]);
+            console.log(cart[0].name);
 
             // removeItemFromCart(name) // Removes one item
 
