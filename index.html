@@ -52,30 +52,11 @@
             }
 
 
-            addItemToCart("Apple", 1.22, 1);
-            addItemToCart("Pear", 1.72, 3);
-            addItemToCart("Apple", 1.22, 1); // If we add item as same name as another existing item we need to update count of the existing item.
-            addItemToCart("Apple", 1.22, 3);
-            addItemToCart("Banana", 1.00, 1);
-            addItemToCart("Car", 34.00, 1); 
-            addItemToCart("Toy", 5.82, 1);
-            addItemToCart("Notes", 4.00, 3);
-
-            console.log(cart.length); // 6 items eventhough it shows 5 when opening it
-            console.log(cart);
-
-            removeItemFromCartAll("Car")
-
-            console.log(cart.length); // 5 items and shows 5 when opening it
-            console.log(cart);
-
             function clearCart() {  // Removes everything
                 cart = [];
                 saveCart(); 
             }
-            
-            // clearCart(); 
-            // console.log(cart);
+
 
             function countCart() {  // Count number of items in the cart (returns total count)
                 var totalCount = 0;
@@ -112,17 +93,19 @@
             }
 
 
-            var array = listCart();  
-            array[0].name = "Mistake"; 
-            console.log(array); 
-
             function saveCart() {
                 localStorage.setItem("shoppingCart", JSON.stringify(cart)); // parameters represent name and value; JSON is used to convert arrays and objects into a string. LocalStorage needs JSON since it can only store values as strings or numbers. 
             }
 
-            // localStorage.setItem("age", 33); can save things like this. 
 
-            // loadCart()  
+            function loadCart() {
+                cart = JSON.parse(localStorage.getItem("shoppingCart")); // We want to covert that sting we get back from the JSON object, into an array or object 
+            } 
+
+            loadCart(); 
+
+            var array = listCart(); 
+            console.log(array); // Displays the items in console I had saved in my local storage. Now that we have the saveCart and loadCart functions, I can save and load previous data. 
 
         </script>
     </body>
