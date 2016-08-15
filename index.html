@@ -66,13 +66,34 @@
             console.log(cart.length); // 5 items and shows 5 when opening it
             console.log(cart);
 
-            // clearCart() // Removes everything
+            function clearCart() {  // Removes everything
+                cart = [];
+            }
+            
+            // clearCart(); 
+            // console.log(cart);
 
-            // countCart() // Count number of items in the cart (returns total count)
+            function countCart() {  // Count number of items in the cart (returns total count)
+                var totalCount = 0;
+                for (var i in cart) {
+                    totalCount += cart[i].count
+                }
+                return totalCount; 
+            } 
 
-            // totalCart() // Total price of all the items (returns total cost)
+            console.log(countCart());
 
-            // listCart() // returns an array of all items (displays it). 
+            function totalCart() {  // Total price of all the items (returns total cost)
+                var totalCost = 0; 
+                for (var i in cart) {
+                    totalCost += cart[i].price
+                }
+                return totalCost; 
+            } 
+
+            console.log(totalCart());
+
+            // listCart() // returns an array of all items (displays it). This helps with debugging
 
             // saveCart()
 
