@@ -93,7 +93,38 @@
 
             console.log(totalCart());
 
-            // listCart() // returns an array of all items (displays it). This helps with debugging
+            function listCart() {  // Returns an array of all items (displays it). This helps with debugging
+                 var cartCopy = []; 
+                 for (var i in cart) { // Looping through each item in the cart
+                    var item = cart[i]; 
+                    var itemCopy = {};
+                    for (var p in item) { // Looping through each property of the item and make that a property in copy and give it the same value.
+                        itemCopy[p] = item[p]; 
+                    }
+                    cartCopy.push(itemCopy); // Adding the itemcopy to the cartcopy
+                 }
+                 // If we do return cart.slice() we would get a copy of the cart array but the objects inside would be references to the same objects that we have in the original cart. That could cause problems. So slice method does not work since we are dealing with objects inside an array. 
+                 return cartCopy; // so after looping is done we are creating a whole new array and every item in the array is going to be a copy a seperate obj from the original items in the original cart. 
+                 // If you return cart; both arrays in console will say mistake. 
+            }
+
+            // console.log(listCart());
+
+            /* var array = listCart(); // First item in first array does not say mistake but first item in the second array does not day mistake. so we know new array is a copy of original and not a reference. 
+            array[0].name = "Mistake"; 
+            console.log(array); */
+
+            /* var a = ["A", "B", "C"]; 
+            var b = a.slice(); // slice method w/out parameters is used to create a copy of array a for b. So now b is a copy and a new array. // When slice is not used, It does not create a copy of a. It instead passes a reference to a. So it gives you the original array. We don't want our original array to be modified. This could cause a problem. 
+            b.push("D"); 
+            console.log(a); // same thing. b is same a 
+            console.log(b); // same thing. a is same as b */
+
+            /* var a = {age:22, name:"joe"};
+            var b = a; 
+            b.name = "cindy"; 
+            console.log(a);
+            console.log(b); */ // Can't use slice with the objects? 
 
             // saveCart()
 

@@ -1,1 +1,5 @@
-# Practice making a shopping cart
+# Important Review
+
+Objects and arrays are always a reference
+
+
