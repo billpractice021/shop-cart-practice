@@ -20,12 +20,15 @@
         <div>
             <ul id="show-cart">
                 <!-- Everytime we click an item link above, when we add item to cart, it will appear on the list so we
-                we will use the listCart function to regnerate the html in this <div> -->
+                we will use the listCart function to regnerate the html in this <div>. Anything inside this tag(the inner html of the "show-cart") gets overwriten when we call .html(output in this example) --> 
             </ul>
+            <div>Total Cart: $<span id="total-cart"></span></div> <!-- We use span so that Total Cart: $ does not get overwritten by .html. -->
         </div>
 
 
         <script>
+
+ 
            
             $(".add-to-cart").click(function(event){
                 event.preventDefault(); // Prevents links from refreshing the page. Changes right there on the page. 
@@ -38,14 +41,13 @@
 
             
             function displayCart() { // Displays the cart in the <!-- --> above. 
-                console.log("*** Display Cart ***");
                 var cartArray = listCart();
-                console.log("*** Count Cart :"+cartArray.length);
                 var output = ""; 
                 for (var i in cartArray) {
                     output += "<li>"+cartArray[i].name+" "+cartArray[i].count+"</li>"    // += means append to this. Add more items to this everytime we loop. 
                 }
-                $("#show-cart").html(output); // Shows us our listed cart in out html page. 
+                $("#show-cart").html(output); // Shows us our listed cart in out html page. the .html allows us to write, text into a tag like in between the show-cart ul tag.
+                $("#total-cart").html(totalCart());
             }
 
             
@@ -65,6 +67,7 @@
                 for (var i in cart) {
                     if (cart[i].name === name) { // .name if from Item in cart and === name if from addItemToCart(name)
                         cart[i].count += count; // Add count to whatever the value of count prop is. 
+                        saveCart(); //Need to add this here otherwise return statmenet will skip saved info. 
                         return; // This will end the function 
                     }
                 }
@@ -118,7 +121,7 @@
             function totalCart() {  // Total price of all the items (returns total cost)
                 var totalCost = 0; 
                 for (var i in cart) {
-                    totalCost += cart[i].price
+                    totalCost += cart[i].price * cart[i].count; // Fixed mistake. 
                 }
                 return totalCost; 
             } 
@@ -151,9 +154,7 @@
             loadCart(); // without this our cart will have zero items in it
             displayCart(); // If I want to display my cart initially when the page is loaded you have to make sure you call the display cart function after you have loaded the cart from local storage. *** Important ***
 
-            var array = listCart(); 
-            console.log(array); // Displays the items in console I had saved in my local storage. Now that we have the saveCart and loadCart functions, I can save and load previous data. 
-
+           
         </script>
     </body>
 </html>
