@@ -2,12 +2,54 @@
 <html>
     <head>
 	    <title></title>
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     </head>
     <body>
         <h1>Shopping Cart</h1>
         
+        <div>
+            <ul>
+                <li><a class="add-to-cart" href="#" data-name="Apple" data-price="1.22">Apple $1.22</a></li>
+                <li><a class="add-to-cart" href="#" data-name="Banana" data-price="1.33">Banana $1.33</a></li>
+                <li><a class="add-to-cart" href="#" data-name="Shoe" data-price="22.33">Shoe $22.33</a></li>
+                <li><a class="add-to-cart" href="#" data-name="Frisbee" data-price="5.00">Frisbee $5.22</a></li>
+            </ul>
+            <button id="clear-cart">Clear Cart</button>
+        </div>
+
+        <div>
+            <ul id="show-cart">
+                <!-- Everytime we click an item link above, when we add item to cart, it will appear on the list so we
+                we will use the listCart function to regnerate the html in this <div> -->
+            </ul>
+        </div>
+
+
         <script>
+           
+            $(".add-to-cart").click(function(event){
+                event.preventDefault(); // Prevents links from refreshing the page. Changes right there on the page. 
+                var name = $(this).attr("data-name"); // keyword "this" represents the link you click on from above.
+                var price = Number($(this).attr("data-price")); // coverts string to number "Number"
+                
+                addItemToCart(name, price, 1);
+                displayCart(); 
+            });
+
+            function displayCart() { // Displays the cart in the <!-- --> above. 
+                var cartArray = listCart();
+                var output = ""; 
+                for (var i in cartArray) {
+                    output += "<li>"+cartArray[i].name+" "+cartArray[i].count+"</li>"    // += means append to this. Add more items to this everytime we loop. 
+                }
+                $("#show-cart").html(output); // Shows us our listed cart in out html page. 
+            }
+
+            // Functions below. JQuery above. 
+
+
             var cart = []; 
+            
             var Item = function(name, price, count) {
                 this.name = name;
                 this.price = price;
