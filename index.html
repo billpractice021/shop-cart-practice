@@ -36,14 +36,19 @@
                 displayCart(); 
             });
 
+            
             function displayCart() { // Displays the cart in the <!-- --> above. 
+                console.log("*** Display Cart ***");
                 var cartArray = listCart();
+                console.log("*** Count Cart :"+cartArray.length);
                 var output = ""; 
                 for (var i in cartArray) {
                     output += "<li>"+cartArray[i].name+" "+cartArray[i].count+"</li>"    // += means append to this. Add more items to this everytime we loop. 
                 }
                 $("#show-cart").html(output); // Shows us our listed cart in out html page. 
             }
+
+            
 
             // Functions below. JQuery above. 
 
@@ -108,7 +113,7 @@
                 return totalCount; 
             } 
 
-            console.log(countCart());
+           
 
             function totalCart() {  // Total price of all the items (returns total cost)
                 var totalCost = 0; 
@@ -118,20 +123,19 @@
                 return totalCost; 
             } 
 
-            console.log(totalCart());
 
             function listCart() {  // Returns an array of all items (displays it). This helps with debugging
-                 var cartCopy = []; 
-                 for (var i in cart) { // Looping through each item in the cart
+                var cartCopy = []; 
+                for (var i in cart) { // Looping through each item in the cart
                     var item = cart[i]; 
                     var itemCopy = {};
                     for (var p in item) { // Looping through each property of the item and make that a property in copy and give it the same value.
                         itemCopy[p] = item[p]; 
                     }
                     cartCopy.push(itemCopy); // Adding the itemcopy to the cartcopy
-                 }
+                }
                  
-                 return cartCopy; 
+                return cartCopy; 
             }
 
 
@@ -144,7 +148,8 @@
                 cart = JSON.parse(localStorage.getItem("shoppingCart")); // We want to covert that sting we get back from the JSON object, into an array or object 
             } 
 
-            loadCart(); 
+            loadCart(); // without this our cart will have zero items in it
+            displayCart(); // If I want to display my cart initially when the page is loaded you have to make sure you call the display cart function after you have loaded the cart from local storage. *** Important ***
 
             var array = listCart(); 
             console.log(array); // Displays the items in console I had saved in my local storage. Now that we have the saveCart and loadCart functions, I can save and load previous data. 
