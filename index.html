@@ -26,9 +26,33 @@
         </div>
 
 
+
         <script>
 
- 
+        // Example Below:
+        var obj = {}; 
+        obj.name = "Bill"; // prop and its value "Bill"
+        obj.age = 24;
+        obj.myFunction = function(thing, count) { // A function is also a value. 
+            //
+        }; 
+
+        var BM_shoppingCart = {}; // To avoid scoping problems we can put everything into one variable as long as that variable is unique. So we have a namespace in this case BM_shoppingCart that is an object where we can add properties and function aka methods. So we put all our functions and variables in this namespace(one main variable).  
+
+
+            // displayCart : Function // Apart from the cart functions
+
+            // cart : Array
+            // Item : Object/Class
+            // addItemToCart : Function
+            // removeItemFromCart : Function
+            // removeItemFromCartAll : Function
+            // clearCart : Function
+            // countCart : Function
+            // totalCart : Function
+            // listCart : Function
+            // saveCart : Function
+            // loadCart : Function
            
             $(".add-to-cart").click(function(event){
                 event.preventDefault(); // Prevents links from refreshing the page. Changes right there on the page. 
