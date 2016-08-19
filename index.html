@@ -40,26 +40,27 @@
             });
 
             
+            $("#clear-cart").click(function(event){
+                clearCart();
+                displayCart(); 
+            }); 
+
+            
             function displayCart() { // Displays the cart in the <!-- --> above. 
                 var cartArray = listCart();
                 var output = ""; 
                 for (var i in cartArray) {
-                    output += "<li>"+cartArray[i].name+" "+cartArray[i].count+"</li>"    // += means append to this. Add more items to this everytime we loop. 
+                    output += "<li>"+cartArray[i].name
+                    +" "+cartArray[i].count
+                    +" x "+cartArray[i].price
+                    +" = "+cartArray[i].total+"</li>"; // += means append to this. Add more items to this everytime we loop. 
                 }
                 $("#show-cart").html(output); // Shows us our listed cart in out html page. the .html allows us to write, text into a tag like in between the show-cart ul tag.
                 $("#total-cart").html(totalCart());
             }
 
-            var message = "Hello World"; 
-            var someText = "<h1>"; 
-            someText += message; // Appends this to someText variable.
-            someText += "</h1>"; 
-            var anotherText = "<p>"+message+"</p>"; // You need to close both strings (<p> tags in this case) in order to display message. 
-            console.log(someText);
-            console.log(anotherText);
-
             
-
+           
             // Functions below. JQuery above. 
 
 
@@ -129,9 +130,9 @@
             function totalCart() {  // Total price of all the items (returns total cost)
                 var totalCost = 0; 
                 for (var i in cart) {
-                    totalCost += cart[i].price * cart[i].count; // Fixed mistake. 
+                    totalCost += cart[i].price * cart[i].count; // Fixed mistake. // totalCost is a variable but it contains a number so we can add methods to it. 
                 }
-                return totalCost; 
+                return totalCost.toFixed(2); // toFixed method converts our number to a string and rounds it to a fixed number of decimal spaces. 
             } 
 
 
@@ -139,10 +140,11 @@
                 var cartCopy = []; 
                 for (var i in cart) { // Looping through each item in the cart
                     var item = cart[i]; 
-                    var itemCopy = {};
-                    for (var p in item) { // Looping through each property of the item and make that a property in copy and give it the same value.
+                    var itemCopy = {}; //This is what we pass back to other functions. 
+                    for (var p in item) { // Looping through each property of the item and make that a property in copy and give it the same value. This gets our 3 properties name, price, and count of the original array. 
                         itemCopy[p] = item[p]; 
                     }
+                    itemCopy.total = (item.price * item.count).toFixed(2); // We add this 4th property in this checkpoint. 
                     cartCopy.push(itemCopy); // Adding the itemcopy to the cartcopy
                 }
                  
