@@ -54,6 +54,10 @@
                     +" "+cartArray[i].count
                     +" x "+cartArray[i].price
                     +" = "+cartArray[i].total
+                    +" <button class='plus-item' data-name='"
+                    +cartArray[i].name+"'>+</button>"
+                    +" <button class='subtract-item' data-name='"
+                    +cartArray[i].name+"'>-</button>"
                     +" <button class='delete-item' data-name='"
                     +cartArray[i].name+"'>X</button>" // Does not exist yet until after displayCart is called on
                     +"</li>"; // += means append to this. Add more items to this everytime we loop. 
@@ -68,6 +72,18 @@
                 removeItemFromCartAll(name); 
                 displayCart(); 
             }); 
+
+            $("#show-cart").on("click", ".subtract-item", function(event){
+                var name = $(this).attr("data-name"); 
+                removeItemFromCart(name); 
+                displayCart(); 
+            });
+
+            $("#show-cart").on("click", ".plus-item", function(event){
+                var name = $(this).attr("data-name"); 
+                addItemToCart(name, 0, 1); 
+                displayCart(); 
+            });
            
             // Functions below. JQuery above. 
 
