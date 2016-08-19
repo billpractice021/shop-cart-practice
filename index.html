@@ -53,13 +53,21 @@
                     output += "<li>"+cartArray[i].name
                     +" "+cartArray[i].count
                     +" x "+cartArray[i].price
-                    +" = "+cartArray[i].total+"</li>"; // += means append to this. Add more items to this everytime we loop. 
+                    +" = "+cartArray[i].total
+                    +" <button class='delete-item' data-name='"
+                    +cartArray[i].name+"'>X</button>" // Does not exist yet until after displayCart is called on
+                    +"</li>"; // += means append to this. Add more items to this everytime we loop. 
                 }
                 $("#show-cart").html(output); // Shows us our listed cart in out html page. the .html allows us to write, text into a tag like in between the show-cart ul tag.
                 $("#total-cart").html(totalCart());
             }
 
             
+            $("#show-cart").on("click", ".delete-item", function(event){ // #show-cart is parent element of delete button class. so the on method is when a click event occurs on show cart, we see if that click occurs on the .delete-item class. If it does occur we execute this function. Otherwise, it is not executed. 
+                var name = $(this).attr("data-name"); // this refers to the button you click on which occurs on one of the the items with .delete-item. 
+                removeItemFromCartAll(name); 
+                displayCart(); 
+            }); 
            
             // Functions below. JQuery above. 
 
