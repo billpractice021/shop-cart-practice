@@ -53,7 +53,9 @@
                 var output = ""; 
                 for (var i in cartArray) {
                     output += "<li>"+cartArray[i].name
-                    +" "+cartArray[i].count
+                    +" <input class='item-count' type='number' data-name='"
+                    +cartArray[i].name
+                    +"' value='"+cartArray[i].count+"' >"
                     +" x "+cartArray[i].price
                     +" = "+cartArray[i].total
                     +" <button class='plus-item' data-name='"
@@ -87,6 +89,12 @@
                 practiceCart.addItemToCart(name, 0, 1); // Can't use "this" because jqeury stuff is outside of the shopping cart object. They just call on the methods inside the shopping cart object. So we have to use the name practiceCart. 
                 displayCart(); 
             });
+
+            $("#show-cart").on("change", ".item-count", function(event) { // will change value of output when activated. 
+                var name = $(this).attr("data-name"); 
+                var count = $(this).val(); // We can get the value from the input field with val. "this" refers to item count(input field).
+                practiceCart.setCountForItem(name, count); // name of item we want to set the count for, and how many of that item we want to set.   
+            }); 
            
             
 
@@ -116,6 +124,17 @@
                 var item = new this.Item(name, price, count); //Executed only if we do not already find the item name in the cart
                 this.cart.push(item);
                 this.saveCart();  // practiceCart owns addItemToCart and saveCart. // this.saveCart inside the method addItemToCart means it belongs to the owner of this method. The owner is practiceCart. 
+            };
+
+
+            practiceCart.setCountForItem = function(name, count) { // **** Review this Checkpoint 27 countInput ****
+                for (var i in this.cart) {
+                    if (this.cart[i].name === name) {
+                        this.cart[i].count = count;
+                        break; 
+                    }
+                }
+                this.saveCart(); 
             };
            
             
