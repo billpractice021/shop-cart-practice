@@ -92,8 +92,9 @@
 
             $("#show-cart").on("change", ".item-count", function(event) { // will change value of output when activated. 
                 var name = $(this).attr("data-name"); 
-                var count = $(this).val(); // We can get the value from the input field with val. "this" refers to item count(input field).
-                practiceCart.setCountForItem(name, count); // name of item we want to set the count for, and how many of that item we want to set.   
+                var count = Number($(this).val()); // We can get the value from the input field with val. "this" refers to item count(input field). Also number coverts string to number. 
+                practiceCart.setCountForItem(name, count); // name of item we want to set the count for, and how many of that item we want to set. 
+                displayCart(); // When we add this, the input field updates along with the price for that particular item.    
             }); 
            
             
@@ -130,7 +131,7 @@
             practiceCart.setCountForItem = function(name, count) { // **** Review this Checkpoint 27 countInput ****
                 for (var i in this.cart) {
                     if (this.cart[i].name === name) {
-                        this.cart[i].count = count;
+                        this.cart[i].count = count; // Count is string. 
                         break; 
                     }
                 }
