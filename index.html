@@ -29,30 +29,7 @@
 
         <script>
 
-        // Example Below:
-        var obj = {}; 
-        obj.name = "Bill"; // prop and its value "Bill"
-        obj.age = 24;
-        obj.myFunction = function(thing, count) { // A function is also a value. 
-            //
-        }; 
-
-        var BM_shoppingCart = {}; // To avoid scoping problems we can put everything into one variable as long as that variable is unique. So we have a namespace in this case BM_shoppingCart that is an object where we can add properties and functions aka methods. So we put all our functions and variables in this namespace(one main variable).  
-
-
-            // displayCart : Function // Apart from the cart functions
-
-            // cart : Array
-            // Item : Object/Class
-            // addItemToCart : Function
-            // removeItemFromCart : Function
-            // removeItemFromCartAll : Function
-            // clearCart : Function
-            // countCart : Function
-            // totalCart : Function
-            // listCart : Function
-            // saveCart : Function
-            // loadCart : Function
+            
            
             $(".add-to-cart").click(function(event){
                 event.preventDefault(); // Prevents links from refreshing the page. Changes right there on the page. 
@@ -109,18 +86,24 @@
                 displayCart(); 
             });
            
+            
+
+
             // Functions below. JQuery above. 
 
+            var practiceCart = {}; // To avoid scoping problems we can put everything into one variable as long as that variable is unique. So we have a namespace in this case practiceCart that is an object where we can add properties and functions aka methods and variables. So we put all our functions and variables in this namespace(one main variable). This will not work at first. We need to make a few things. For example. It says loadCart is not defined now. This is becasue loadCart is attatched to the variable practiceCart so we need to make it practiceCart.loadCart(); There are other functions like this that need corrections. 
 
-            var cart = []; 
             
-            var Item = function(name, price, count) {
+            practiceCart.cart = []; 
+            
+            
+            practiceCart.Item = function(name, price, count) {
                 this.name = name;
                 this.price = price;
                 this.count = count; 
             }; 
 
-            function addItemToCart(name, price, count) {
+            practiceCart.addItemToCart = function(name, price, count) {
                 for (var i in cart) {
                     if (cart[i].name === name) { // .name if from Item in cart and === name if from addItemToCart(name)
                         cart[i].count += count; // Add count to whatever the value of count prop is. 
@@ -131,10 +114,10 @@
                 var item = new Item(name, price, count); //Executed only if we do not already find the item name in the cart
                 cart.push(item);
                 saveCart();  
-            }
+            };
            
             
-            function removeItemFromCart(name) { // Removes one item by looking up the name
+            practiceCart.removeItemFromCart = function(name) { // Removes one item by looking up the name
                 for (var i in cart) {
                     if (cart[i].name === name) {
                         cart[i].count--; // cart[i].count = cart[i].count - 1; or cart[i].count -= 1; (same thing)
@@ -145,10 +128,10 @@
                     }
                 }
                 saveCart(); 
-            }
+            };
             
 
-            function removeItemFromCartAll(name) { // Removes all of a particular item using name.
+            practiceCart.removeItemFromCartAll = function(name) { // Removes all of a particular item using name.
                 for (var i in cart) {
                     if (cart[i].name === name) {
                         cart.splice(i, 1); 
@@ -156,35 +139,35 @@
                     }
                 }
                 saveCart(); 
-            }
+            };
 
 
-            function clearCart() {  // Removes everything
+            practiceCart.clearCart = function() {  // Removes everything
                 cart = [];
                 saveCart(); 
-            }
+            };
 
 
-            function countCart() {  // Count number of items in the cart (returns total count)
+            practiceCart.countCart = function() {  // Count number of items in the cart (returns total count)
                 var totalCount = 0;
                 for (var i in cart) {
                     totalCount += cart[i].count
                 }
                 return totalCount; 
-            } 
+            }; 
 
            
 
-            function totalCart() {  // Total price of all the items (returns total cost)
+            practiceCart.totalCart = function() {  // Total price of all the items (returns total cost)
                 var totalCost = 0; 
                 for (var i in cart) {
                     totalCost += cart[i].price * cart[i].count; // Fixed mistake. // totalCost is a variable but it contains a number so we can add methods to it. 
                 }
                 return totalCost.toFixed(2); // toFixed method converts our number to a string and rounds it to a fixed number of decimal spaces. 
-            } 
+            }; 
 
 
-            function listCart() {  // Returns an array of all items (displays it). This helps with debugging
+            practiceCart.listCart = function() {  // Returns an array of all items (displays it). This helps with debugging
                 var cartCopy = []; 
                 for (var i in cart) { // Looping through each item in the cart
                     var item = cart[i]; 
@@ -197,17 +180,17 @@
                 }
                  
                 return cartCopy; 
-            }
+            };
 
 
-            function saveCart() {
+            practiceCart.saveCart = function() {
                 localStorage.setItem("shoppingCart", JSON.stringify(cart)); // parameters represent name and value; JSON is used to convert arrays and objects into a string. LocalStorage needs JSON since it can only store values as strings or numbers. 
-            }
+            };
 
 
-            function loadCart() {
+            practiceCart.loadCart = function() {
                 cart = JSON.parse(localStorage.getItem("shoppingCart")); // We want to covert that sting we get back from the JSON object, into an array or object 
-            } 
+            }; 
 
             loadCart(); // without this our cart will have zero items in it
             displayCart(); // If I want to display my cart initially when the page is loaded you have to make sure you call the display cart function after you have loaded the cart from local storage. *** Important ***
