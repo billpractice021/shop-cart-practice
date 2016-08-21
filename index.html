@@ -36,7 +36,7 @@
                 var name = $(this).attr("data-name"); // keyword "this" represents the link you click on from above.
                 var price = Number($(this).attr("data-price")); // coverts string to number "Number"
                 
-                addItemToCart(name, price, 1);
+                practiceCart.addItemToCart(name, price, 1);
                 displayCart(); 
             });
 
@@ -48,7 +48,7 @@
 
             
             function displayCart() { // Displays the cart in the <!-- --> above. 
-                var cartArray = listCart();
+                var cartArray = practiceCart.listCart();
                 var output = ""; 
                 for (var i in cartArray) {
                     output += "<li>"+cartArray[i].name
@@ -64,7 +64,7 @@
                     +"</li>"; // += means append to this. Add more items to this everytime we loop. 
                 }
                 $("#show-cart").html(output); // Shows us our listed cart in out html page. the .html allows us to write, text into a tag like in between the show-cart ul tag.
-                $("#total-cart").html(totalCart());
+                $("#total-cart").html(practiceCart.totalCart());
             }
 
             
@@ -91,7 +91,7 @@
 
             // Functions below. JQuery above. 
 
-            var practiceCart = {}; // To avoid scoping problems we can put everything into one variable as long as that variable is unique. So we have a namespace in this case practiceCart that is an object where we can add properties and functions aka methods and variables. So we put all our functions and variables in this namespace(one main variable). This will not work at first. We need to make a few things. For example. It says loadCart is not defined now. This is becasue loadCart is attatched to the variable practiceCart so we need to make it practiceCart.loadCart(); There are other functions like this that need corrections. 
+            var practiceCart = {}; // To avoid scoping problems we can put everything into one variable as long as that variable is unique. So we have a namespace in this case practiceCart that is an object where we can add functions(as properties) aka methods and variables. So we put all our functions and variables in this namespace(one main variable).
 
             
             practiceCart.cart = []; 
@@ -103,17 +103,17 @@
                 this.count = count; 
             }; 
 
-            practiceCart.addItemToCart = function(name, price, count) {
+            practiceCart.addItemToCart = function(name, price, count) { // Anytime you are in a method(function) that belongs to an object, you can refer to that method as "this"
                 for (var i in cart) {
                     if (cart[i].name === name) { // .name if from Item in cart and === name if from addItemToCart(name)
                         cart[i].count += count; // Add count to whatever the value of count prop is. 
-                        saveCart(); //Need to add this here otherwise return statmenet will skip saved info. 
+                        this.saveCart(); //Need to add this here otherwise return statmenet will skip saved info. 
                         return; // This will end the function 
                     }
                 }
-                var item = new Item(name, price, count); //Executed only if we do not already find the item name in the cart
+                var item = new this.Item(name, price, count); //Executed only if we do not already find the item name in the cart
                 cart.push(item);
-                saveCart();  
+                this.saveCart();  // practiceCart owns addItemToCart and saveCart. // this.saveCart inside the method addItemToCart means it belongs to the owner of this method. The owner is practiceCart. 
             };
            
             
@@ -192,7 +192,7 @@
                 cart = JSON.parse(localStorage.getItem("shoppingCart")); // We want to covert that sting we get back from the JSON object, into an array or object 
             }; 
 
-            loadCart(); // without this our cart will have zero items in it
+            practiceCart.loadCart(); // without this our cart will have zero items in it
             displayCart(); // If I want to display my cart initially when the page is loaded you have to make sure you call the display cart function after you have loaded the cart from local storage. *** Important ***
 
            
