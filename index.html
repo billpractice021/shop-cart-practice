@@ -22,6 +22,7 @@
                 <!-- Everytime we click an item link above, when we add item to cart, it will appear on the list so we
                 we will use the listCart function to regnerate the html in this <div>. Anything inside this tag(the inner html of the "show-cart") gets overwriten when we call .html(output in this example) --> 
             </ul>
+            <div>You have <span id="count-cart">X</span> items in your cart</div>
             <div>Total Cart: $<span id="total-cart"></span></div> <!-- We use span so that Total Cart: $ does not get overwritten by .html. -->
         </div>
 
@@ -64,6 +65,7 @@
                     +"</li>"; // += means append to this. Add more items to this everytime we loop. 
                 }
                 $("#show-cart").html(output); // Shows us our listed cart in out html page. the .html allows us to write, text into a tag like in between the show-cart ul tag.
+                $("#count-cart").html(practiceCart.countCart()); 
                 $("#total-cart").html(practiceCart.totalCart());
             }
 
