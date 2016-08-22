@@ -99,17 +99,28 @@
 
             displayCart(); // If I want to display my cart initially when the page is loaded you have to make sure you call the display cart function after you have loaded the cart from local storage. *** Important ***
 
-            // Example
-            /*function () {
+            // Example   *************** Important Info *******************
+            /*var test = (function () { // This is a self executing function with the extra parenthesis. This is a closure. JavaScript executes this immediately.  
                 var cart = []; //  so inside of this function this var called cart which is private and is not accessible to the world (rest of javaScript)
                 var obj = {}; // private variable
-                obj.publicMethod = function() {
-                    console.log(cart.length);
+                obj.addItem = function(name) { //public method. These inner functions can access the private variables but the outside world cannot. 
+                    cart.push(name); 
                 }
-                return obj; // When the outer function returns obj then publicMethod will be available to this obj. When you call on this function and return obj, only properties of this obj will be public. Everything else inside var cart = []; and var obj = {}; will not be accessible. The values inside the private variables still live on in javaScript. Any features inside public method can access the variables like console.log(cart.length). so the publicMethod has access to the private variables but the outside world that has access to obj can only call on the public method but not the private variables. 
+                obj.countCart = function() { //public method
+                    console.log("Count Cart:"+cart.length);
+                }
+                return obj; //The obj has a property called countCart (which is the publicMethod). When the outer function returns obj then publicMethod will be available to this obj. When you call on this function and return obj, only properties of this obj will be public. Everything else inside var cart = []; and var obj = {}; will not be accessible. The values inside the private variables still live on in javaScript. Any features inside public method can access the variables like console.log(cart.length). so the publicMethod has access to the private variables but the outside world that has access to obj can only call on the public method but not the private variables. 
 
-            }*/
+            })(); // This whole system is called a module. Some of it it private and some of it is public. 
 
+
+            test.addItem("Foo"); 
+            test.addItem("Bar"); 
+            test.countCart(); // countCart is a public method (property of obj) so it is accessible. not var obj or var cart. 
+            console.log(test.cart); // Outside world cannot acces the cart since it is private. That is why it says undefined in the console when we try to access it from outside.  
+
+            (function(){})(); // This invokes the function. Javacript see this as an expression that can be executed and it executes the function.
+            */
     
            
         </script>
