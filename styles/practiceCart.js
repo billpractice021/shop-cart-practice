@@ -1,5 +1,5 @@
-var practiceCart = {}; // To avoid scoping problems we can put everything into one variable as long as that variable is unique. So we have a namespace in this case practiceCart that is an object where we can add functions(as properties) aka methods and variables. So we put all our functions and variables in this namespace(one main variable). We are converting out shopping cart into an object. 
-
+var practiceCart = {}; // We have an object but it is available anywhere in javaScript. That means any piece of code can access this name and any property of the object. 
+// Only want my  main methods (functions) to be exposed publically. The practiceCart obj, practiceCart.cart and Item class should be private because we don't want them to access out properties in our shopping cart. 
 
 practiceCart.cart = []; // This variable is attatched to practiceCart object. In order for the cart to work we need to do this.cart for everywhere cart appears below. 
 
