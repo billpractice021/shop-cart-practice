@@ -12,11 +12,27 @@ var practiceCart = (function(){ // We have an object but it is available anywher
         this.count = count; 
     }; 
 
+
+    function saveCart() { // Not attached to an object since they are private. Same with loadCart. 
+        localStorage.setItem("shoppingCart", JSON.stringify(cart)); // parameters represent name and value; JSON is used to convert arrays and objects into a string. LocalStorage needs JSON since it can only store values as strings or numbers. 
+    };
+
+
+    function loadCart() {
+        cart = JSON.parse(localStorage.getItem("shoppingCart")); // We want to covert that sting we get back from the JSON object, into an array or object. At the moment variable cart = is global since we have not said where cart belongs to since it is not attatched to practiceCart yet. We need to fix this. *** Important *** So we fix this by putting keyword "this"
+    }; 
+
+    
+    loadCart(); // without this our cart will have zero items in it
+
+    
+    
     // Public Methods. Our public API below(Application programming Interface) below is all our names, methods, properties, that we can use in our code to access the features of practiceCart. 
     var obj = {}; // obj replaces practiceCart in front of methods. This can be names anything does not have to be named "obj."
     
+    
     obj.addItemToCart = function(name, price, count) { // Anytime you are in a method(function) that belongs to an object, you can refer to that method as "this"
-        for (var i in cart) { // cart does not belong to practiceCart anymore so we remove this. cart also does not belong to obj since it is a regular variable above as a private variable. 
+        for (var i in cart) { // cart does not belong to practiceCart anymore so we remove this. cart also does not belong to obj since it is a regular variable above as a private variable since we are using a closure ****** Important *******
             // We remove "this" in front of all the functions below. **** Important ****
             if (cart[i].name === name) { // .name if from Item in cart and === name if from addItemToCart(name)
                 cart[i].count += count; // Add count to whatever the value of count prop is. 
@@ -30,71 +46,70 @@ var practiceCart = (function(){ // We have an object but it is available anywher
     };
 
 
-    practiceCart.setCountForItem = function(name, count) { // **** Review this Checkpoint 27 countInput ****
-        for (var i in this.cart) {
-            if (this.cart[i].name === name) {
-                this.cart[i].count = count; // Count is string. 
+    obj.setCountForItem = function(name, count) { // **** Review this Checkpoint 27 countInput ****
+        for (var i in cart) {
+            if (cart[i].name === name) {
+                cart[i].count = count; // Count is string. 
                 break; 
             }
         }
-        this.saveCart(); 
+        saveCart(); 
     };
 
 
-    practiceCart.removeItemFromCart = function(name) { // Removes one item by looking up the name
-        for (var i in this.cart) {
-            if (this.cart[i].name === name) {
-                this.cart[i].count--; // cart[i].count = cart[i].count - 1; or cart[i].count -= 1; (same thing)
-                if (this.cart[i].count === 0) {
-                    this.cart.splice(i, 1); // If count is 0 it removes item from cart completely. or you can put removeItemFromCartAll(); instead of using splice in this case. 
+    obj.removeItemFromCart = function(name) { // Removes one item by looking up the name
+        for (var i in cart) {
+            if (cart[i].name === name) {
+                cart[i].count--; // cart[i].count = cart[i].count - 1; or cart[i].count -= 1; (same thing)
+                if (cart[i].count === 0) {
+                    cart.splice(i, 1); // If count is 0 it removes item from cart completely. or you can put removeItemFromCartAll(); instead of using splice in this case. 
                 }
                 break; 
             }
         }
-        this.saveCart(); // Use "this" since it is a method inside the practiceCart object. the object is our self. 
+        saveCart(); // Use "this" since it is a method inside the practiceCart object. the object is our self. 
     };
 
 
-    practiceCart.removeItemFromCartAll = function(name) { // Removes all of a particular item using name.
-        for (var i in this.cart) {
-            if (this.cart[i].name === name) {
-                this.cart.splice(i, 1); 
+    obj.removeItemFromCartAll = function(name) { // Removes all of a particular item using name.
+        for (var i in cart) {
+            if (cart[i].name === name) {
+                cart.splice(i, 1); 
                 break; 
             }
         }
-        this.saveCart(); 
+        saveCart(); 
     };
 
 
-    practiceCart.clearCart = function() {  // Removes everything
-        this.cart = [];
-        this.saveCart(); 
+    obj.clearCart = function() {  // Removes everything
+        cart = [];
+        saveCart(); 
     };
 
 
-    practiceCart.countCart = function() {  // Count number of items in the cart (returns total count)
+    obj.countCart = function() {  // Count number of items in the cart (returns total count)
         var totalCount = 0;
-        for (var i in this.cart) {
-            totalCount += this.cart[i].count
+        for (var i in cart) {
+            totalCount += cart[i].count
         }
         return totalCount; 
     }; 
 
 
-
-    practiceCart.totalCart = function() {  // Total price of all the items (returns total cost)
+    obj.totalCart = function() {  // Total price of all the items (returns total cost)
         var totalCost = 0; 
-        for (var i in this.cart) {
-            totalCost += this.cart[i].price * this.cart[i].count; // Fixed mistake. // totalCost is a variable but it contains a number so we can add methods to it. 
+        for (var i in cart) {
+            totalCost += cart[i].price * cart[i].count; // Fixed mistake. // totalCost is a variable but it contains a number so we can add methods to it. 
         }
         return totalCost.toFixed(2); // toFixed method converts our number to a string and rounds it to a fixed number of decimal spaces. 
     }; 
 
 
-    practiceCart.listCart = function() {  // Returns an array of all items (displays it). This helps with debugging
+    obj.listCart = function() {  // Returns an array of all items (displays it). This helps with debugging
         var cartCopy = []; // this does not get keyword "this" since they have keyword "var" in front of it. 
-        for (var i in this.cart) { // Looping through each item in the cart
-            var item = this.cart[i]; 
+        for (var i in cart) { // Looping through each item in the cart
+            var item = cart[i]; 
             var itemCopy = {}; //This is what we pass back to other functions. 
             for (var p in item) { // Looping through each property of the item and make that a property in copy and give it the same value. This gets our 3 properties name, price, and count of the original array. 
                 itemCopy[p] = item[p]; 
@@ -105,18 +120,6 @@ var practiceCart = (function(){ // We have an object but it is available anywher
          
         return cartCopy; 
     };
-
-
-    practiceCart.saveCart = function() {
-        localStorage.setItem("shoppingCart", JSON.stringify(this.cart)); // parameters represent name and value; JSON is used to convert arrays and objects into a string. LocalStorage needs JSON since it can only store values as strings or numbers. 
-    };
-
-
-    practiceCart.loadCart = function() {
-        this.cart = JSON.parse(localStorage.getItem("shoppingCart")); // We want to covert that sting we get back from the JSON object, into an array or object. At the moment variable cart = is global since we have not said where cart belongs to since it is not attatched to practiceCart yet. We need to fix this. *** Important *** So we fix this by putting keyword "this"
-    }; 
-
-    practiceCart.loadCart(); // without this our cart will have zero items in it
 
 
     return obj; 
